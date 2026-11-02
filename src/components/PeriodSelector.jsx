@@ -1,15 +1,17 @@
 import { PERIODS } from "../utils/dates";
+import styles from "./PeriodSelector.module.css";
 
-export default function PeriodSelector({ days, onChange }) {
+export default function PeriodSelector({ t, days, onChange }) {
   return (
-    <div>
+    <div className={styles.group}>
       {PERIODS.map((p) => (
         <button
-          key={p.days}
-          onClick={() => onChange(p.days)}
-          disabled={days === p.days}
+          key={p}
+          className={days === p ? styles.active : ""}
+          aria-pressed={days === p}
+          onClick={() => onChange(p)}
         >
-          {p.label}
+          {t.periods[p]}
         </button>
       ))}
     </div>

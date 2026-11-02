@@ -1,70 +1,46 @@
-:root {
-    --bg-color: #f8fafc;
-    --card-bg: #ffffff;
-    --border-color: #e2e8f0;
-    --text-main: #0f172a;
-    --text-muted: #64748b;
-    --accent-color: #ef4444; /* Vermelho mais claro e vibrante */
-    --accent-hover: #dc2626;
-    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-}
-
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: var(--bg-color);
-    color: var(--text-main);
-    min-height: 100vh;
-    padding: 2rem 1rem;
-    font-family: 'Inter', sans-serif;
+  max-width: 960px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: var(--surface);
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  color: var(--text);
 }
 
-section, .box {
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 20px;
-    padding: 1.75rem;
-    box-shadow: var(--shadow);
-    margin-bottom: 1.5rem;
+.header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 h1 {
-    font-size: 1.75rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    color: var(--text-main);
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--heading);
+  margin: 0;
 }
 
-h2 {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-main);
+h2 { color: var(--heading); font-size: 1.2rem; }
+
+.favBtn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
+  font-weight: 600;
 }
 
-/* Estilo padrão para botões gerais (Favoritos, TopMovers, etc) */
-button {
-    background: var(--accent-color);
-    color: #ffffff;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 0.75rem 1rem;
-    transition: background 0.2s, opacity 0.2s;
-}
-
-button:hover {
-    background: var(--accent-hover);
-}
-
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
+.favBtn:hover:not(:disabled) { filter: brightness(0.92); }
 
 .error {
-    color: #ef4444;
-    font-weight: 500;
-    margin: 0.5rem 0;
+  background-color: var(--error-bg);
+  color: var(--error);
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border-left: 4px solid var(--error);
+  margin: 1rem 0;
+  font-size: 0.95rem;
 }

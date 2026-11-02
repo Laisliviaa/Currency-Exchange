@@ -1,8 +1,12 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getCurrencies } from "./services/frankfurter";
 import { useHistory } from "./hooks/useHistory";
 import { useFavorites } from "./hooks/useFavorites";
 import { useTopMovers } from "./hooks/useTopMovers";
+import { useSettings } from "./hooks/useSettings";
+import { translations } from "./i18n/translations";
+import { localizeCurrencies, formatError } from "./utils/currencies";
+import SettingsBar from "./components/SettingsBar";
 import Converter from "./components/Converter";
 import Favorites from "./components/Favorites";
 import TopMovers from "./components/TopMovers";
@@ -12,7 +16,11 @@ import RateTable from "./components/RateTable";
 import styles from "./App.module.css";
 
 export default function App() {
+  const settings = useSettings();
+  const t = translations[settings.lang];
+
   const [currencies, setCurrencies] = useState({});
+  const [currenciesError, setCurrenciesError] = useState(null);
   const [from, setFrom] = useState("USD");
   const [to, setTo] = useState("BRL");
   const [days, setDays] = useState(30);
@@ -21,13 +29,17 @@ export default function App() {
   const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const { movers, loading: moversLoading, error: moversError } = useTopMovers(from);
 
-  const [currenciesError, setCurrenciesError] = useState(null);
-
   useEffect(() => {
     getCurrencies()
       .then(setCurrencies)
-      .catch((e) => setCurrenciesError(e.message));
+      .catch((e) => setCurrenciesError(e));
   }, []);
+
+  // nomes das moedas no idioma escolhido
+  const names = useMemo(
+    () => localizeCurrencies(currencies, settings.lang),
+    [currencies, settings.lang]
+  );
 
   function swap() {
     setFrom(to);
@@ -41,14 +53,28 @@ export default function App() {
 
   return (
     <main className={styles.container}>
-      <h1>Currency Exchange</h1>
+      <header className={styles.header}>
+        <h1>{t.title}</h1>
+        <SettingsBar
+          t={t}
+          theme={settings.theme}
+          accent={settings.accent}
+          lang={settings.lang}
+          onTheme={settings.setTheme}
+          onAccent={settings.setAccent}
+          onLang={settings.setLang}
+        />
+      </header>
+
       {currenciesError && (
         <p className={styles.error}>
-          Não foi possível carregar a lista de moedas: {currenciesError}
+          {t.common.currenciesError}: {formatError(currenciesError, t)}
         </p>
       )}
+
       <Converter
-        currencies={currencies}
+        t={t}
+        currencies={names}
         from={from}
         to={to}
         onFromChange={setFrom}
@@ -56,33 +82,39 @@ export default function App() {
         onSwap={swap}
       />
 
-      <button onClick={() => toggleFavorite(from, to)} disabled={from === to}>
-        {isFavorite(from, to) ? "★ Remover dos favoritos" : "☆ Favoritar"} {from} → {to}
+      <button
+        className={styles.favBtn}
+        onClick={() => toggleFavorite(from, to)}
+        disabled={from === to}
+      >
+        {isFavorite(from, to) ? t.favorites.remove : t.favorites.add} {from} → {to}
       </button>
 
       <Favorites
+        t={t}
         favorites={favorites}
         onSelect={selectPair}
         onRemove={toggleFavorite}
       />
 
       <TopMovers
+        t={t}
         base={from}
         movers={movers}
         loading={moversLoading}
-        error={moversError}
-        currencies={currencies}
+        error={formatError(moversError, t)}
+        currencies={names}
         onSelect={setTo}
       />
 
-      <PeriodSelector days={days} onChange={setDays} />
-      {loading && <p>Carregando...</p>}
-      {error && <p className={styles.error}>{error}</p>}
-      {!loading && !error && data.length === 0 && <p>Nenhum dado encontrado.</p>}
+      <PeriodSelector t={t} days={days} onChange={setDays} />
+      {loading && <p>{t.common.loading}</p>}
+      {error && <p className={styles.error}>{formatError(error, t)}</p>}
+      {!loading && !error && data.length === 0 && <p>{t.common.noData}</p>}
       {!loading && !error && data.length > 0 && (
         <>
-          <RateChart data={data} />
-          <RateTable rows={data} />
+          <RateChart t={t} data={data} />
+          <RateTable t={t} rows={data} />
         </>
       )}
     </main>

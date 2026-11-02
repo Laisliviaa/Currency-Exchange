@@ -20,7 +20,7 @@ export function useTopMovers(base) {
         const json = await getRatesSeries(base, start, end);
         if (!cancelled) setMovers(getTopMovers(json.rates));
       } catch (e) {
-        if (!cancelled) setError(e.message);
+        if (!cancelled) setError(e);
       } finally {
         if (!cancelled) setLoading(false);
       }

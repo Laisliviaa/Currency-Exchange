@@ -1,4 +1,4 @@
-.box { margin: 1rem 0; }
-.list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.item { display: flex; gap: 2px; }
-.empty { opacity: 0.7; }
+.box { margin: 1.25rem 0; }
+.list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.item { display: flex; gap: 0.25rem; }
+.empty { color: var(--muted); }

@@ -25,7 +25,7 @@ export function useHistory(from, to, days) {
         }));
         if (!cancelled) setData(rows);
       } catch (e) {
-        if (!cancelled) setError(e.message);
+        if (!cancelled) setError(e);
       } finally {
         if (!cancelled) setLoading(false);
       }

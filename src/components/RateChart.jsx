@@ -1,43 +1,32 @@
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import {
+  LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, ResponsiveContainer,
+} from "recharts";
 
-export default function RateChart({ data }) {
-  // Função para converter "YYYY-MM-DD" para "DD/MM/YY"
-  const formatDate = (dateStr) => {
-    if (!dateStr) return "";
-    const [year, month, day] = dateStr.split("-");
-    if (!year || !month || !day) return dateStr;
-    return `${day}/${month}/${year.slice(-2)}`;
-  };
+const tick = { fill: "var(--muted)", fontSize: 12 };
 
+export default function RateChart({ t, data }) {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
-        <XAxis 
-          dataKey="date" 
-          tickFormatter={formatDate}
-          stroke="var(--text-muted, #64748b)"
-          fontSize={12}
-        />
-        <YAxis 
-          domain={["auto", "auto"]} 
-          stroke="var(--text-muted, #64748b)"
-          fontSize={12}
-        />
-        <Tooltip 
-          labelFormatter={(label) => `Data: ${formatDate(label)}`}
-          contentStyle={{ 
-            background: "var(--card-bg, #ffffff)", 
-            borderColor: "var(--border-color, #e2e8f0)",
-            borderRadius: "10px",
-            color: "var(--text-main, #0f172a)"
+        <CartesianGrid stroke="var(--border)" strokeDasharray="3 3" />
+        <XAxis dataKey="date" tick={tick} stroke="var(--border)" />
+        <YAxis domain={["auto", "auto"]} tick={tick} stroke="var(--border)" />
+        <Tooltip
+          contentStyle={{
+            background: "var(--surface)",
+            border: "1px solid var(--border)",
+            borderRadius: 8,
+            color: "var(--text)",
           }}
+          labelStyle={{ color: "var(--muted)" }}
         />
-        <Line 
-          type="monotone" 
-          dataKey="rate" 
-          stroke="#ef4444" 
-          strokeWidth={2} 
-          dot={false} 
+        <Line
+          type="monotone"
+          dataKey="rate"
+          name={t.table.rate}
+          stroke="var(--accent)"
+          strokeWidth={2}
+          dot={false}
         />
       </LineChart>
     </ResponsiveContainer>

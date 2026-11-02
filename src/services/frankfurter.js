@@ -2,7 +2,10 @@ const BASE_URL = "https://api.frankfurter.dev/v1";
 
 async function request(path) {
   const res = await fetch(`${BASE_URL}${path}`);
-  if (!res.ok) throw new Error(`Erro ${res.status} ao consultar a API`);
+  if (!res.ok) {
+    // o texto da mensagem é montado na interface (traduzido)
+    throw Object.assign(new Error(`HTTP ${res.status}`), { status: res.status });
+  }
   return res.json();
 }
 

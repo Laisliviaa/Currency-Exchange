@@ -1,83 +1,37 @@
 .box {
-  background: var(--card-bg, #ffffff);
-  border: 1px solid var(--border-color, #e2e8f0);
-  border-radius: 20px;
-  padding: 1.75rem;
-  box-shadow: var(--shadow, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
-  margin-bottom: 1.5rem;
-}
-
-.row {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
-  flex-wrap: wrap;
-}
-
-.row input,
-.row select {
-  flex: 1;
-  min-width: 140px;
-  padding: 0.75rem 1rem;
-  border: 1px solid var(--border-color, #cbd5e1);
+  background: var(--surface-2);
+  padding: 1.25rem;
   border-radius: 12px;
-  font-size: 1rem;
-  outline: none;
-  background: var(--card-bg, #ffffff);
-  color: var(--text-main, #0f172a);
+  border: 1px solid var(--border);
+  margin-bottom: 1.25rem;
 }
 
-.swapBtn {
-  background: #f1f5f9;
-  border: 1px solid var(--border-color, #cbd5e1);
-  color: #334155;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background 0.2s;
-}
+.box input { flex: 1; min-width: 120px; }
+.box select { cursor: pointer; max-width: 100%; }
 
-.swapBtn:hover {
-  background: #e2e8f0;
-}
-
-/* Botão Converter com vermelho mais claro e vibrante (#ef4444) */
-.convertBtn {
-  background: #ef4444;
-  color: #ffffff;
-  border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 12px;
+.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-contrast);
   font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.1s;
+  padding: 0.65rem 1.25rem;
 }
 
-.convertBtn:hover {
-  background: #dc2626;
-}
+.primary:hover:not(:disabled) { filter: brightness(0.92); }
+
+.swap { font-size: 1.1rem; padding: 0.6rem 0.9rem; }
+
+.error,
+.result { flex-basis: 100%; margin: 0; }
 
 .error {
-  color: #ef4444;
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-top: 0.75rem;
-}
-
-.result {
-  margin-top: 1rem;
-  padding: 0.75rem 1rem;
-  background: rgba(239, 68, 68, 0.08);
-  border-left: 4px solid #ef4444;
+  color: var(--error);
+  background: var(--error-bg);
+  border-left: 4px solid var(--error);
+  padding: 0.6rem 0.9rem;
   border-radius: 8px;
-}
-
-.result p {
-  font-size: 1.1rem;
-  color: var(--text-main, #0f172a);
-}
-
-.result small {
-  color: var(--text-muted, #64748b);
 }
