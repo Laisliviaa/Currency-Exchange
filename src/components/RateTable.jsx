@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { filterRows, sortRows } from "../utils/tableUtils";
 import { exportCsv } from "../utils/exportCsv";
+import { formatDate } from "../utils/dates"; // Importa a formatação global DD/MM/AA
 import styles from "./RateTable.module.css";
 
 const EMPTY = { startDate: "", endDate: "", minRate: "", maxRate: "" };
@@ -23,6 +24,9 @@ export default function RateTable({ t, rows }) {
     }
   }
 
+  // Obtém a data atual no formato YYYY-MM-DD para bloquear datas futuras nos inputs
+  const today = new Date().toISOString().split("T")[0];
+
   const visible = sortRows(filterRows(rows, filters), sortField, sortDir);
   const arrow = (f) => (f === sortField ? (sortDir === "asc" ? " ↑" : " ↓") : "");
 
@@ -31,22 +35,59 @@ export default function RateTable({ t, rows }) {
       <div className={styles.filters}>
         <label>
           {t.table.from}
-          <input type="date" name="startDate" value={filters.startDate} onChange={handleChange} />
+          <input 
+            type="date" 
+            name="startDate" 
+            value={filters.startDate} 
+            max={today} 
+            onChange={handleChange} 
+          />
         </label>
         <label>
           {t.table.to}
-          <input type="date" name="endDate" value={filters.endDate} onChange={handleChange} />
+          <input 
+            type="date" 
+            name="endDate" 
+            value={filters.endDate} 
+            max={today} 
+            onChange={handleChange} 
+          />
         </label>
         <label>
           {t.table.minRate}
-          <input type="number" step="any" name="minRate" value={filters.minRate} onChange={handleChange} />
+          <input 
+            type="number" 
+            step="any" 
+            min="0"
+            name="minRate" 
+            placeholder="0.00" 
+            value={filters.minRate} 
+            onChange={handleChange} 
+          />
         </label>
         <label>
           {t.table.maxRate}
-          <input type="number" step="any" name="maxRate" value={filters.maxRate} onChange={handleChange} />
+          <input 
+            type="number" 
+            step="any" 
+            min="0"
+            name="maxRate" 
+            placeholder="0.00" 
+            value={filters.maxRate} 
+            onChange={handleChange} 
+          />
         </label>
-        <button onClick={() => setFilters(EMPTY)}>{t.table.clear}</button>
-        <button onClick={() => exportCsv(visible, t.table.csvHeader, t.table.csvName)} disabled={visible.length === 0}>
+      </div>
+
+      <div className={styles.actions}>
+        <button className={styles.actionBtn} onClick={() => setFilters(EMPTY)}>
+          {t.table.clear}
+        </button>
+        <button
+          className={styles.actionBtn}
+          onClick={() => exportCsv(visible, t.table.csvHeader, t.table.csvName)}
+          disabled={visible.length === 0}
+        >
           {t.table.export}
         </button>
       </div>
@@ -73,7 +114,7 @@ export default function RateTable({ t, rows }) {
             <tbody>
               {visible.map((r) => (
                 <tr key={r.date}>
-                  <td>{r.date}</td>
+                  <td>{formatDate(r.date)}</td>
                   <td>{r.from}</td>
                   <td>{r.to}</td>
                   <td>{r.rate}</td>

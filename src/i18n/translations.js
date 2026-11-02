@@ -6,7 +6,7 @@ export const LANGS = [
 
 export const translations = {
   pt: {
-    title: "Currency Exchange",
+    title: "Currency Exchange - Câmbio de Moedas",
     settings: {
       theme: "Tema",
       light: "Claro",
@@ -43,7 +43,7 @@ export const translations = {
       180: "6 meses", 365: "1 ano", 1825: "5 anos", 3650: "10 anos",
     },
     table: {
-      from: "De", to: "Até", minRate: "Cotação mínima", maxRate: "Cotação máxima.",
+      from: "De", to: "Até", minRate: "Cotação mínima", maxRate: "Cotação máxima",
       clear: "Limpar filtros", export: "Exportar CSV",
       records: (n) => `${n} registro(s) encontrado(s)`,
       empty: "Nenhum registro para os filtros aplicados.",
@@ -114,7 +114,7 @@ export const translations = {
     },
   },
   es: {
-    title: "Currency Exchange",
+    title: "Currency Exchange - Cambio de Divisas",
     settings: {
       theme: "Tema",
       light: "Claro",

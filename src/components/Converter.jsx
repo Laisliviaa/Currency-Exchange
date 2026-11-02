@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getLatestRate } from "../services/frankfurter";
 import { formatError } from "../utils/currencies";
+import { formatDate } from "../utils/dates"; // Importa a função de formatação
 import styles from "./Converter.module.css";
 
 export default function Converter({ t, currencies, from, to, onFromChange, onToChange, onSwap }) {
@@ -70,7 +71,7 @@ export default function Converter({ t, currencies, from, to, onFromChange, onToC
         <p className={styles.result}>
           {amount} {from} = <strong>{result.value.toFixed(2)} {to}</strong>
           <br />
-          {t.converter.rate}: {result.rate} | {t.converter.quoteOf} {result.date}
+          {t.converter.rate}: {result.rate} | {t.converter.quoteOf} {formatDate(result.date)}
         </p>
       )}
     </section>
