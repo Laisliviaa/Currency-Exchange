@@ -29,7 +29,7 @@ export default function Converter({ currencies, from, to, onFromChange, onToChan
     }
   }
 
-  const codes = Object.keys(currencies);
+  const codes = currencies ? Object.keys(currencies) : [];
 
   return (
     <section className={styles.box}>
@@ -40,15 +40,27 @@ export default function Converter({ currencies, from, to, onFromChange, onToChan
         placeholder="Valor"
       />
       <select value={from} onChange={(e) => onFromChange(e.target.value)}>
-        {codes.map((c) => <option key={c} value={c}>{c}</option>)}
+        {codes.length === 0 ? (
+          <option value={from}>{from}</option>
+        ) : (
+          codes.map((c) => <option key={c} value={c}>{c}</option>)
+        )}
       </select>
-      <button onClick={onSwap}>⇄</button>
+      
+      <button type="button" onClick={onSwap}>⇄</button>
+      
       <select value={to} onChange={(e) => onToChange(e.target.value)}>
-        {codes.map((c) => <option key={c} value={c}>{c}</option>)}
+        {codes.length === 0 ? (
+          <option value={to}>{to}</option>
+        ) : (
+          codes.map((c) => <option key={c} value={c}>{c}</option>)
+        )}
       </select>
-      <button onClick={handleConvert}>Converter</button>
+      
+      <button type="button" onClick={handleConvert}>Converter</button>
 
       {error && <p className={styles.error}>{error}</p>}
+      
       {result && (
         <p>
           {amount} {from} = <strong>{result.value.toFixed(2)} {to}</strong>
