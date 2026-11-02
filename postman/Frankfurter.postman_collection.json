@@ -1,0 +1,109 @@
+{
+  "info": {
+    "name": "Frankfurter - Currency Exchange",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.frankfurter.dev/v1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Listar moedas",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/currencies",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "currencies"
+          ],
+          "query": []
+        },
+        "description": "Todas as moedas dispon\u00edveis"
+      }
+    },
+    {
+      "name": "Cota\u00e7\u00e3o atual (USD\u2192BRL)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        },
+        "description": "Usada no conversor"
+      }
+    },
+    {
+      "name": "Hist\u00f3rico (USD\u2192BRL)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-09-01..2026-10-01?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-09-01..2026-10-01"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        },
+        "description": "Usada no gr\u00e1fico e na tabela"
+      }
+    },
+    {
+      "name": "S\u00e9rie completa (base USD)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-09-01..2026-10-01?base=USD",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-09-01..2026-10-01"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            }
+          ]
+        },
+        "description": "Usada no ranking de valoriza\u00e7\u00e3o"
+      }
+    }
+  ]
+}
