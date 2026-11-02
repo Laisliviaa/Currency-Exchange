@@ -13,3 +13,6 @@ export const getLatestRate = (from, to) =>
 
 export const getHistory = (from, to, start, end) =>
   request(`/${start}..${end}?base=${from}&symbols=${to}`);
+
+export const getRatesSeries = (base, start, end) =>
+  request(`/${start}..${end}?base=${base}`);
