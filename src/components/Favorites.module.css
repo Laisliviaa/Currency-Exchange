@@ -1,0 +1,4 @@
+.box { margin: 1rem 0; }
+.list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.item { display: flex; gap: 2px; }
+.empty { opacity: 0.7; }
