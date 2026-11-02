@@ -33,40 +33,54 @@ export default function Converter({ currencies, from, to, onFromChange, onToChan
 
   return (
     <section className={styles.box}>
-      <input
-        type="number"
-        value={amount}
-        onChange={(e) => setAmount(e.target.value)}
-        placeholder="Valor"
-      />
-      <select value={from} onChange={(e) => onFromChange(e.target.value)}>
-        {codes.length === 0 ? (
-          <option value={from}>{from}</option>
-        ) : (
-          codes.map((c) => <option key={c} value={c}>{c}</option>)
-        )}
-      </select>
-      
-      <button type="button" onClick={onSwap}>⇄</button>
-      
-      <select value={to} onChange={(e) => onToChange(e.target.value)}>
-        {codes.length === 0 ? (
-          <option value={to}>{to}</option>
-        ) : (
-          codes.map((c) => <option key={c} value={c}>{c}</option>)
-        )}
-      </select>
-      
-      <button type="button" onClick={handleConvert}>Converter</button>
+      <h2>Conversor de Moedas</h2>
+      <div className={styles.row}>
+        <input
+          type="number"
+          value={amount}
+          onChange={(e) => setAmount(e.target.value)}
+          placeholder="Valor"
+        />
+        <select value={from} onChange={(e) => onFromChange(e.target.value)}>
+          {codes.length === 0 ? (
+            <option value={from}>{from}</option>
+          ) : (
+            codes.map((c) => (
+              <option key={c} value={c}>
+                {c} {currencies[c] ? `- ${currencies[c]}` : ""}
+              </option>
+            ))
+          )}
+        </select>
+        
+        <button type="button" onClick={onSwap} className={styles.swapBtn}>⇄</button>
+        
+        <select value={to} onChange={(e) => onToChange(e.target.value)}>
+          {codes.length === 0 ? (
+            <option value={to}>{to}</option>
+          ) : (
+            codes.map((c) => (
+              <option key={c} value={c}>
+                {c} {currencies[c] ? `- ${currencies[c]}` : ""}
+              </option>
+            ))
+          )}
+        </select>
+        
+        <button type="button" onClick={handleConvert} className={styles.convertBtn}>
+          Converter
+        </button>
+      </div>
 
       {error && <p className={styles.error}>{error}</p>}
       
       {result && (
-        <p>
-          {amount} {from} = <strong>{result.value.toFixed(2)} {to}</strong>
-          <br />
-          Taxa: {result.rate} | Cotação de {result.date}
-        </p>
+        <div className={styles.result}>
+          <p>
+            {amount} {from} = <strong>{result.value.toFixed(2)} {to}</strong>
+          </p>
+          <small>Taxa: {result.rate} | Cotação de {result.date}</small>
+        </div>
       )}
     </section>
   );

@@ -1,67 +1,83 @@
-/* src/components/Converter.module.css */
 .box {
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #e2e8f0);
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: var(--shadow, 0 10px 25px -5px rgba(0, 0, 0, 0.05));
+  margin-bottom: 1.5rem;
+}
+
+.row {
   display: flex;
-  flex-wrap: wrap;
   gap: 0.75rem;
   align-items: center;
-  background: #f8fafc;
-  padding: 1.25rem;
-  border-radius: 12px;
-  border: 1px solid #e2e8f0;
-  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
 }
 
-.box input,
-.box select {
-  padding: 0.65rem 0.85rem;
-  border: 1px solid #cbd5e0;
-  border-radius: 8px;
-  font-size: 1rem;
-  background-color: #fff;
-  color: #2d3748;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.box input:focus,
-.box select:focus {
-  border-color: #3182ce;
-  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.15);
-}
-
-.box input {
+.row input,
+.row select {
   flex: 1;
-  min-width: 120px;
+  min-width: 140px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 12px;
+  font-size: 1rem;
+  outline: none;
+  background: var(--card-bg, #ffffff);
+  color: var(--text-main, #0f172a);
 }
 
-.box select {
+.swapBtn {
+  background: #f1f5f9;
+  border: 1px solid var(--border-color, #cbd5e1);
+  color: #334155;
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
   cursor: pointer;
+  font-weight: bold;
+  transition: background 0.2s;
 }
 
-.box button {
-  padding: 0.65rem 1.25rem;
-  background-color: #3182ce;
-  color: white;
+.swapBtn:hover {
+  background: #e2e8f0;
+}
+
+/* Botão Converter com vermelho mais claro e vibrante (#ef4444) */
+.convertBtn {
+  background: #ef4444;
+  color: #ffffff;
   border: none;
-  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  border-radius: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.2s, transform 0.1s;
 }
 
-.box button:hover {
-  background-color: #2b6cb0;
+.convertBtn:hover {
+  background: #dc2626;
 }
 
-/* Estilo específico para o botão de inverter (⇄) */
-.box button:nth-of-type(1) {
-  background-color: #edf2f7;
-  color: #4a5568;
-  padding: 0.65rem 0.9rem;
+.error {
+  color: #ef4444;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 0.75rem;
+}
+
+.result {
+  margin-top: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(239, 68, 68, 0.08);
+  border-left: 4px solid #ef4444;
+  border-radius: 8px;
+}
+
+.result p {
   font-size: 1.1rem;
-  border: 1px solid #cbd5e0;
+  color: var(--text-main, #0f172a);
 }
 
-.box button:nth-of-type(1):hover {
-  background-color: #e2e8f0;
+.result small {
+  color: var(--text-muted, #64748b);
 }

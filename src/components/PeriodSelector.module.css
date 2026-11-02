@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+/* Limita o tamanho e deixa os botões compactos e elegantes */
+.container button {
+  padding: 0.5rem 1rem;
+  background: var(--card-bg, #ffffff);
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 10px;
+  color: var(--text-main, #0f172a);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  min-width: 80px; /* Garante um tamanho mínimo padronizado */
+  max-width: 120px; /* Impede que fiquem gigantes */
+}
+
+.container button:hover {
+  background: rgba(239, 68, 68, 0.08);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Botão ativo com o vermelho vibrante */
+.container button.active,
+.container button[data-active="true"] {
+  background: #ef4444;
+  color: #ffffff;
+  border-color: #ef4444;
+}

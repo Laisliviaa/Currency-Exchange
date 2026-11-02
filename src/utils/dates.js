@@ -17,3 +17,18 @@ export function getRange(days) {
   start.setDate(end.getDate() - days);
   return { start: fmt(start), end: fmt(end) };
 }
+
+// Nova função para formatar de YYYY-MM-DD para DD/MM/YY
+export function formatDate(dateString) {
+  if (!dateString) return "";
+  
+  // Se vier como "YYYY-MM-DD"
+  if (dateString.includes("-")) {
+    const [year, month, day] = dateString.split("-");
+    if (!year || !month || !day) return dateString;
+    const shortYear = year.slice(-2);
+    return `${day}/${month}/${shortYear}`;
+  }
+  
+  return dateString;
+}

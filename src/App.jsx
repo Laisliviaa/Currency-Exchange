@@ -21,8 +21,12 @@ export default function App() {
   const { favorites, isFavorite, toggleFavorite } = useFavorites();
   const { movers, loading: moversLoading, error: moversError } = useTopMovers(from);
 
+  const [currenciesError, setCurrenciesError] = useState(null);
+
   useEffect(() => {
-    getCurrencies().then(setCurrencies).catch(() => {});
+    getCurrencies()
+      .then(setCurrencies)
+      .catch((e) => setCurrenciesError(e.message));
   }, []);
 
   function swap() {
@@ -38,6 +42,11 @@ export default function App() {
   return (
     <main className={styles.container}>
       <h1>Currency Exchange</h1>
+      {currenciesError && (
+        <p className={styles.error}>
+          Não foi possível carregar a lista de moedas: {currenciesError}
+        </p>
+      )}
       <Converter
         currencies={currencies}
         from={from}

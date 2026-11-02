@@ -34,5 +34,5 @@ export function useHistory(from, to, days) {
     return () => { cancelled = true; };
   }, [from, to, days]);
 
-  return { data, loading, error };
+  return { data: from === to ? [] : data, loading, error };
 }
