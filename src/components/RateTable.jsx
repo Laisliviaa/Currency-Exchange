@@ -6,6 +6,9 @@ import styles from "./RateTable.module.css";
 
 const EMPTY = { startDate: "", endDate: "", minRate: "", maxRate: "" };
 
+// Data de hoje (AAAA-MM-DD) para bloquear datas futuras nos filtros
+const today = new Date().toISOString().split("T")[0];
+
 export default function RateTable({ t, rows }) {
   const [filters, setFilters] = useState(EMPTY);
   const [sortField, setSortField] = useState("date");
@@ -24,8 +27,6 @@ export default function RateTable({ t, rows }) {
     }
   }
 
-  // Obtém a data atual no formato YYYY-MM-DD para bloquear datas futuras nos inputs
-  const today = new Date().toISOString().split("T")[0];
 
   const visible = sortRows(filterRows(rows, filters), sortField, sortDir);
   const arrow = (f) => (f === sortField ? (sortDir === "asc" ? " ↑" : " ↓") : "");

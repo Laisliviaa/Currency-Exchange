@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { filterRows, sortRows } from "../src/utils/tableUtils.js";
 import { getTopMovers } from "../src/utils/topMovers.js";
-import { getRange, PERIODS } from "../src/utils/dates.js";
+import { getRange, PERIODS, formatDate } from "../src/utils/dates.js";
 import { exportCsv } from "../src/utils/exportCsv.js";
 
 const rows = [
@@ -70,4 +70,8 @@ test("PERIODS: 8 períodos", () => {
 
 test("exportCsv: lista vazia não exporta", () => {
   assert.equal(exportCsv([]), false);
+});
+test("formatDate: AAAA-MM-DD vira DD/MM/AA", () => {
+  assert.equal(formatDate("2026-10-27"), "27/10/26");
+  assert.equal(formatDate(""), "");
 });
