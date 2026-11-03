@@ -6,27 +6,27 @@ Aplicação web moderna e responsiva desenvolvida em **React + Vite** para consu
 
 ## ✨ Funcionalidades
 
-- **Conversor Rápido:** Converta valores entre diversas moedas globais com dados atualizados e opção de inverter moedas instantaneamente[cite: 12].
-- **Gráficos de Histórico:** Acompanhe a variação das taxas de câmbio ao longo de diferentes períodos (de 7 dias até 10 anos) de forma visual com `Recharts`[cite: 4, 15].
-- **Moedas em Destaque (Top Movers):** Descubra quais moedas mais se valorizaram nos últimos 30 dias com indicadores visuais de alta e baixa[cite: 9, 17].
-- **Conversões Favoritas:** Salve seus pares de moedas favoritos utilizando o `localStorage` para acesso rápido[cite: 11, 14].
+- **Conversor Rápido:** Converta valores entre diversas moedas globais com dados atualizados e opção de inverter moedas instantaneamente.
+- **Gráficos de Histórico:** Acompanhe a variação das taxas de câmbio ao longo de diferentes períodos (de 7 dias até 10 anos) de forma visual com `Recharts`.
+- **Moedas em Destaque (Top Movers):** Descubra quais moedas mais se valorizaram nos últimos 30 dias com indicadores visuais de alta e baixa.
+- **Conversões Favoritas:** Salve seus pares de moedas favoritos utilizando o `localStorage` para acesso rápido.
 - **Tabela Avançada de Cotações:** 
-  - Filtros por intervalo de datas (com bloqueio de datas futuras) e limites de cotação mínima/máxima[cite: 5, 23].
-  - Ordenação por data ou valor da cotação[cite: 5, 23].
-  - Opção de recolher/expandir (minimizar) a tabela[cite: 5].
-  - **Exportação para CSV** dos dados filtrados[cite: 5, 22].
-- **Internacionalización (i18n):** Suporte completo a múltiplos idiomas (**Português**, **Inglês** e **Espanhol**) com formatação de datas padronizada (`DD/MM/AA`)[cite: 8, 18].
-- **Personalização de Tema:** Alternância entre modo Claro/Escuro e seletor dinâmico de cores de destaque (`--accent`)[cite: 7, 16].
+  - Filtros por intervalo de datas (com bloqueio de datas futuras) e limites de cotação mínima/máxima.
+  - Ordenação por data ou valor da cotação.
+  - Opção de recolher/expandir (minimizar) a tabela.
+  - **Exportação para CSV** dos dados filtrados.
+- **Internacionalización (i18n):** Suporte completo a múltiplos idiomas (**Português**, **Inglês** e **Espanhol**) com formatação de datas padronizada (`DD/MM/AA`).
+- **Personalização de Tema:** Alternância entre modo Claro/Escuro e seletor dinâmico de cores de destaque (`--accent`).
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
-- **React** (com Hooks customizados)[cite: 14, 15, 16, 17, 26]
-- **Vite**[cite: 26]
-- **CSS Modules** para estilização modular e limpa[cite: 1, 3, 6, 8, 10, 13]
-- **Recharts** para renderização de gráficos interativos[cite: 4]
-- **Frankfurter API** para dados de câmbio públicos e confiáveis[cite: 19]
+- **React** (com Hooks customizados)
+- **Vite**
+- **CSS Modules** para estilização modular e limpa
+- **Recharts** para renderização de gráficos interativos
+- **Frankfurter API** para dados de câmbio públicos e confiáveis
 
 ---
 
@@ -38,3 +38,49 @@ Certifique-se de ter o **Node.js** instalado na sua máquina.
 2. Instale as dependências:
    ```bash
    npm install
+
+   ```
+3. Inicie o servidor de desenvolvimento:
+   ```bash
+   npm run dev
+   ```
+4. Acesse o endereço exibido no terminal (normalmente http://localhost:5173).
+
+Outros comandos: `npm run build`, `npm run lint` e `npm test`.
+
+---
+
+## 🧱 Arquitetura
+
+```
+src/
+  components/   Converter, Favorites, TopMovers, PeriodSelector, RateChart, RateTable, SettingsBar
+  hooks/        useHistory, useTopMovers, useFavorites, useSettings
+  services/     frankfurter.js
+  utils/        dates, tableUtils, exportCsv, topMovers, currencies
+  i18n/         translations.js
+  App.jsx
+tests/          testes das funções utilitárias
+postman/        collection exportada
+docs/           documentação do projeto
+```
+
+Os estados principais (moedas, par e período) ficam no `App` e descem por props (lifting state up).
+
+## 📚 Documentação
+
+- [Requisitos](docs/REQUIREMENTS.md)
+- [Componentes](docs/COMPONENTS.md)
+- [Figma](docs/FIGMA.md)
+- [Testes de API](docs/API_TESTS.md)
+- [Testes de funções](docs/FUNCTION_TESTS.md)
+- [Uso de IA](docs/AI_USAGE.md)
+
+## 🖼️ Imagens
+
+![Desktop](docs/img/desktop.png)
+![Mobile](docs/img/mobile.png)
+
+## 👩‍💻 Autora
+
+Laís Lívia
