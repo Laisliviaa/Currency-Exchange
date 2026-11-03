@@ -12,6 +12,19 @@
   "item": [
     {
       "name": "Listar moedas",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"Retorna objeto com BRL e USD\", () => { const j = pm.response.json(); pm.expect(j).to.have.property(\"BRL\"); pm.expect(j).to.have.property(\"USD\"); });"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [],
@@ -24,12 +37,24 @@
             "currencies"
           ],
           "query": []
-        },
-        "description": "Todas as moedas dispon\u00edveis"
+        }
       }
     },
     {
-      "name": "Cota\u00e7\u00e3o atual (USD\u2192BRL)",
+      "name": "Cotação atual (USD→BRL)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"Tem base, date e rates.BRL\", () => { const j = pm.response.json(); pm.expect(j.base).to.eql(\"USD\"); pm.expect(j).to.have.property(\"date\"); pm.expect(j.rates.BRL).to.be.a(\"number\"); });"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [],
@@ -51,12 +76,24 @@
               "value": "BRL"
             }
           ]
-        },
-        "description": "Usada no conversor"
+        }
       }
     },
     {
-      "name": "Hist\u00f3rico (USD\u2192BRL)",
+      "name": "Histórico (USD→BRL)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"rates tem várias datas com BRL\", () => { const r = pm.response.json().rates; const d = Object.keys(r); pm.expect(d.length).to.be.above(10); pm.expect(r[d[0]].BRL).to.be.a(\"number\"); });"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [],
@@ -78,12 +115,24 @@
               "value": "BRL"
             }
           ]
-        },
-        "description": "Usada no gr\u00e1fico e na tabela"
+        }
       }
     },
     {
-      "name": "S\u00e9rie completa (base USD)",
+      "name": "Série completa (base USD)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"Cada data traz várias moedas\", () => { const r = pm.response.json().rates; const d = Object.keys(r)[0]; pm.expect(Object.keys(r[d]).length).to.be.above(10); });"
+            ]
+          }
+        }
+      ],
       "request": {
         "method": "GET",
         "header": [],
@@ -101,8 +150,118 @@
               "value": "USD"
             }
           ]
-        },
-        "description": "Usada no ranking de valoriza\u00e7\u00e3o"
+        }
+      }
+    },
+    {
+      "name": "Moeda inválida (erro esperado)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Retorna erro 4xx\", () => pm.expect(pm.response.code).to.be.within(400, 499));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/latest?base=XXX",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "latest"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "XXX"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Data de fim de semana (sábado)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"A data efetiva é anterior ou igual à pedida\", () => pm.expect(pm.response.json().date <= \"2026-10-24\").to.be.true);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2026-10-24?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2026-10-24"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "Intervalo de 10 anos",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Responde em menos de 3s\", () => pm.expect(pm.response.responseTime).to.be.below(3000));",
+              "pm.test(\"Retorna muitos registros (pode vir agrupado)\", () => pm.expect(Object.keys(pm.response.json().rates).length).to.be.above(100));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/2016-11-02..2026-11-02?base=USD&symbols=BRL",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "2016-11-02..2026-11-02"
+          ],
+          "query": [
+            {
+              "key": "base",
+              "value": "USD"
+            },
+            {
+              "key": "symbols",
+              "value": "BRL"
+            }
+          ]
+        }
       }
     }
   ]
