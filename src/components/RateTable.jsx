@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { filterRows, sortRows } from "../utils/tableUtils";
 import { exportCsv } from "../utils/exportCsv";
-import { formatDate } from "../utils/dates"; // Importa a formatação global DD/MM/AA
+import { formatDate } from "../utils/dates"; 
 import styles from "./RateTable.module.css";
 
 const EMPTY = { startDate: "", endDate: "", minRate: "", maxRate: "" };
 
-// Data de hoje (AAAA-MM-DD) para bloquear datas futuras nos filtros
 const today = new Date().toISOString().split("T")[0];
+
+const tenYearsAgo = new Date();
+tenYearsAgo.setFullYear(tenYearsAgo.getFullYear() - 10);
+const minDate = tenYearsAgo.toISOString().split("T")[0];
 
 export default function RateTable({ t, rows }) {
   const [filters, setFilters] = useState(EMPTY);
@@ -40,6 +43,7 @@ export default function RateTable({ t, rows }) {
             type="date" 
             name="startDate" 
             value={filters.startDate} 
+            min={minDate}
             max={today} 
             onChange={handleChange} 
           />
@@ -50,6 +54,7 @@ export default function RateTable({ t, rows }) {
             type="date" 
             name="endDate" 
             value={filters.endDate} 
+            min={minDate}
             max={today} 
             onChange={handleChange} 
           />

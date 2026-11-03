@@ -18,11 +18,14 @@ Testes automatizados em `tests/utils.test.js`, executados com `npm test` (Node T
 | PERIODS | 8 períodos | OK |
 | exportCsv | lista vazia não exporta | OK |
 
-## Testes manuais (preencher depois de testar no navegador)
+## Testes manuais
 | Funcionalidade | Esperado | Resultado |
 |---|---|---|
-| Conversão com valor inválido | mensagem de erro | |
-| Moedas iguais | mensagem de erro | |
+| Conversão com valor inválido | mensagem de erro | OK. Com valor negativo aparece "Informe um valor válido maior que zero." |
+| Moedas iguais | mensagem de erro | OK. Aparece "Escolha moedas diferentes." e o botão de favoritar fica bloqueado |
+| Filtro de cotação mínima e máxima | não aceita negativos | OK. Os campos não aceitam números negativos |
+| Filtro de data | não aceita data futura | OK. O calendário não deixa escolher datas futuras |
+| Filtro de data | limitado a 10 anos | OK. O calendário só vai até 10 anos atrás |
 | Inverter moedas | origem e destino trocam | |
 | Cada um dos 8 períodos | gráfico e tabela atualizam | |
 | Exportar CSV | arquivo com cabeçalho e linhas filtradas | |

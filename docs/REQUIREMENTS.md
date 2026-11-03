@@ -57,6 +57,8 @@ Permitir converter valores entre moedas, acompanhar o histórico de um par, favo
 - RN08: não é possível favoritar um par com moedas iguais.
 - RN09: a valorização é a variação percentual entre a primeira e a última cotação dos últimos 30 dias.
 - RN10: o filtro de data não aceita datas futuras.
+- RN11: o filtro de data só permite datas dos últimos 10 anos (limite do maior período do histórico).
+- RN12: os filtros de cotação mínima e máxima não aceitam valores negativos.
 
 ## Critérios de aceite
 - CA01: converter 100 USD para BRL mostra valor convertido, taxa e data da cotação.
@@ -72,3 +74,4 @@ Permitir converter valores entre moedas, acompanhar o histórico de um par, favo
 - CA11: favoritar um par o adiciona à lista e recarregar a página mantém a lista.
 - CA12: o ranking mostra até 3 moedas com variação percentual e atualiza ao mudar a origem.
 - CA13: trocar tema, cor e idioma altera a interface e é lembrado ao recarregar.
+- CA14: os campos de data bloqueiam datas futuras e anteriores a 10 anos; os de cotação bloqueiam números negativos.
